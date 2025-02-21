@@ -1,0 +1,90 @@
+{
+  "expo": {
+    "name": "Divvi App Starter",
+    "slug": "divvi-app-starter",
+    "scheme": "divvi-app-starter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "xyz.divvi.starter",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Connecting your camera allows you to scan QR codes for transactions.",
+        "NSUserTrackingUsageDescription": "We use the advertising identifier to accurately attribute app installs from ad campaigns.",
+        "NSFaceIDUsageDescription": "This is required for you to use Face ID to secure your account.",
+        "NSContactsUsageDescription": "Adding your contacts makes it easy to send and request payments with your friends.",
+        "NSLocationWhenInUseUsageDescription": "This app requires location access to provide location-based features.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "aps-environment": "production"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ff5050"
+      },
+      "package": "xyz.divvi.starter",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.INTERNET",
+        "android.permission.POST_NOTIFICATIONS"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ff5050"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1",
+            "useFrameworks": "static"
+          },
+          "android": {
+            "extraMavenRepos": ["https://sdk.withpersona.com/android/releases"]
+          }
+        }
+      ],
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": ["Camera", "AppTrackingTransparency", "Contacts"]
+        }
+      ],
+      [
+        "react-native-auth0",
+        {
+          "domain": "auth.valora.xyz"
+        }
+      ],
+      "@divvi/mobile",
+      [
+        "./plugins/withCustomGradleProperties",
+        {
+          "org.gradle.jvmargs": "-Xmx4096m -XX:+HeapDumpOnOutOfMemoryError"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        // Replace with your own project ID
+        "projectId": "1c1a9df8-1e2d-45ef-8667-90a2b9e0d5d3"
+      }
+    },
+    // Replace with your own owner
+    "owner": "divvi"
+  }
+}
