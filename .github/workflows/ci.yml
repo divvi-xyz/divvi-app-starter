@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  # Run on pushes to main..
+  push:
+    branches:
+      - main
+  # ..and any pull request.
+  pull_request:
+
+# Cancel any in progress run of the workflow for a given PR
+# This avoids building outdated code
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          check-latest: true
+      - run: yarn
+      - run: yarn typecheck
+      - run: yarn format:check
+      # We'll add linting later

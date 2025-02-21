@@ -1,0 +1,95 @@
+name: E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Cancel any in progress run of the workflow for a given PR
+# This avoids building outdated code
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  e2e-android:
+    # We use custom runners to speed up the build
+    # Replace this with `ubuntu-latest` to run on standard GitHub Actions runners
+    runs-on:
+      - nscloud-ubuntu-22.04-amd64-16x64-with-cache
+      - nscloud-cache-size-20gb
+      - nscloud-cache-tag-beefy-e2e-android
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set env
+        run: |
+          ANDROID_HOME="$HOME/android-tools"
+          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
+      # See https://namespace.so/docs/actions/nscloud-cache-action
+      - name: Cache
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          cache: gradle
+          path: ${{ env.ANDROID_HOME}}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - uses: actions/setup-node@v4
+        id: setup-node
+        with:
+          node-version-file: "package.json"
+          check-latest: true
+      - name: Setup runner
+        run: |
+          set -x
+
+          mkdir -p $ANDROID_HOME
+
+          curl https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -o cli-tools.zip
+          unzip cli-tools.zip -d "$ANDROID_HOME/cmdline-tools"
+          # Command line tools need to be placed in $ANDROID_HOME/cmdline-tools/latest to function properly
+          # and because we cache $ANDROID_HOME, we need remove the existing version and move the new one
+          rm -rf "$ANDROID_HOME/cmdline-tools/latest"
+          mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+
+          # Temporarily disable checking for EPIPE error and use yes to accept all licenses
+          set +o pipefail
+          yes | sdkmanager --licenses
+          set -o pipefail
+
+          # Install Ninja
+          sudo apt-get install ninja-build
+        shell: bash
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: yarn install
+      - run: eas build --platform android --profile e2e --local
+
+  e2e-ios:
+    # We use custom runners to speed up the build
+    # Replace this with `macos-14` to run on standard GitHub Actions runners
+    # runs-on: macos-14
+    runs-on: ios-e2e-group
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install fastlane cocoapods
+      - uses: actions/setup-node@v4
+        id: setup-node
+        with:
+          node-version-file: "package.json"
+          check-latest: true
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: yarn install
+      - run: eas build --platform ios --profile e2e --local
