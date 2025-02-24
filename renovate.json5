@@ -1,0 +1,46 @@
+{
+  extends: ["github>valora-inc/renovate-config:default.json5"],
+
+  // Restrict semantic commit type to "chore"
+  // See: https://docs.renovatebot.com/presets-default/#semanticprefixfixdepschoreothers
+  //      https://github.com/renovatebot/renovate/discussions/14026
+  ignorePresets: [":semanticPrefixFixDepsChoreOthers"],
+
+  // Limit number of concurrent renovate branches/PRs, to avoid spamming the repo
+  prConcurrentLimit: 4,
+
+  // The order of objects in the packageRules array does matter,
+  // in the sense that rules declared later (towards the end of the array)
+  // overwrite values of an also-matching rule declared earlier.
+  packageRules: [
+    {
+      // Set higher priority for node dependencies
+      matchManagers: ["npm"],
+      prPriority: 2,
+    },
+    {
+      // Disable dependencies updates
+      // As they need to be compatible with the @divvi/mobile peerDependencies
+      matchDepTypes: ["dependencies"],
+      // Exclude @divvi/* packages from this group
+      matchPackageNames: ["!@divvi/*"],
+      enabled: false,
+    },
+    {
+      // For now follow the alpha tag for @divvi/mobile
+      // We'll remove this once we're ready to move to a stable release
+      matchPackageNames: ["@divvi/mobile"],
+      followTag: "alpha",
+      schedule: ["at any time"],
+    },
+    {
+      // Group devDependencies updates
+      matchDepTypes: ["devDependencies"],
+      groupName: "devDependencies",
+      // But exclude some specific packages from this group
+      matchPackageNames: ["!typescript", "!prettier"],
+      // Set default priority for dev dependencies
+      prPriority: 0,
+    },
+  ],
+}
