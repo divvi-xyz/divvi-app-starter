@@ -80,11 +80,9 @@
     ],
     "extra": {
       "eas": {
-        // Replace with your own project ID
         "projectId": "1c1a9df8-1e2d-45ef-8667-90a2b9e0d5d3"
       }
     },
-    // Replace with your own owner
     "owner": "divvi"
   }
 }
