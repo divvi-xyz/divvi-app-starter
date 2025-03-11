@@ -50,9 +50,9 @@ This template includes:
 
 ## Learn More
 
-- [Divvi Mobile Documentation](https://github.com/divvi-xyz/divvi-mobile/tree/main/docs)
-- [Framework Architecture](https://github.com/divvi-xyz/divvi-mobile/blob/main/docs/architecture.md)
-- [API Reference](https://github.com/divvi-xyz/divvi-mobile/blob/main/docs/api-reference.md)
+- [Divvi Mobile Documentation](https://docs.divvi.xyz/mobile-framework/overview)
+- [Framework Architecture](https://docs.divvi.xyz/mobile-framework/divvi-mobile/architecture)
+- [API Reference](https://docs.divvi.xyz/mobile-framework/divvi-mobile/reference)
 
 ## Community
 
