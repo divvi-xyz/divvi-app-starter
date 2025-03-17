@@ -17,6 +17,7 @@
         "NSFaceIDUsageDescription": "This is required for you to use Face ID to secure your account.",
         "NSContactsUsageDescription": "Adding your contacts makes it easy to send and request payments with your friends.",
         "NSLocationWhenInUseUsageDescription": "This app requires location access to provide location-based features.",
+        "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false
       },
       "entitlements": {
@@ -78,6 +79,21 @@
         }
       ]
     ],
+    "locales": {
+      "en-US": "./locales/en-US.json",
+      "es-419": "./locales/es-419.json",
+      "pt-BR": "./locales/pt-BR.json",
+      "de": "./locales/de.json",
+      "ru-RU": "./locales/ru-RU.json",
+      "fr-FR": "./locales/fr-FR.json",
+      "it-IT": "./locales/it-IT.json",
+      "uk-UA": "./locales/uk-UA.json",
+      "pl-PL": "./locales/pl-PL.json",
+      "th-TH": "./locales/th-TH.json",
+      "tr-TR": "./locales/tr-TR.json",
+      "vi-VN": "./locales/vi-VN.json",
+      "zh-CN": "./locales/zh-CN.json"
+    },
     "extra": {
       "eas": {
         "projectId": "1c1a9df8-1e2d-45ef-8667-90a2b9e0d5d3"
