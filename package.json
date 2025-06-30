@@ -86,7 +86,7 @@
     "@babel/core": "^7.27.1",
     "@expo/config-plugins": "~9.1.7",
     "@types/react": "~18.3.20",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   },
   "private": true
