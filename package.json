@@ -84,8 +84,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
-    "@expo/config-plugins": "~9.1.7",
-    "@types/react": "~18.3.20",
+    "@expo/config-plugins": "~10.1.2",
+    "@types/react": "~19.1.8",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },
