@@ -20,10 +20,9 @@ const App = createApp({
       ? expoConfig.scheme[0]
       : expoConfig.scheme
     : "example",
-  // Uncomment this to enable the Divvi protocol and set your referrer ID and protocol IDs
+  // Uncomment this to enable the Divvi protocol and set your Divvi ID
   // divviProtocol: {
-  //   protocolIds: ["somm"],
-  //   referrerId: "some-referrer-id",
+  //   divviId: '0x...',
   // },
   features: {
     cloudBackup: true,
