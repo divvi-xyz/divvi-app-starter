@@ -25,6 +25,7 @@
       }
     },
     "android": {
+      "edgeToEdgeEnabled": false,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ff5050"
@@ -50,12 +51,12 @@
       [
         "expo-build-properties",
         {
+          "android": {
+            "targetSdkVersion": 35
+          },
           "ios": {
             "deploymentTarget": "15.1",
             "useFrameworks": "static"
-          },
-          "android": {
-            "extraMavenRepos": ["https://sdk.withpersona.com/android/releases"]
           }
         }
       ],
@@ -69,6 +70,12 @@
         "react-native-auth0",
         {
           "domain": "auth.valora.xyz"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "recordAudioAndroid": false
         }
       ],
       "@divvi/mobile",

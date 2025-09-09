@@ -31,6 +31,7 @@ jobs:
           echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
           echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
+          echo "ANDROID_SDK_ROOT=" >> $GITHUB_ENV
       # See https://namespace.so/docs/actions/nscloud-cache-action
       - name: Cache
         uses: namespacelabs/nscloud-cache-action@v1
@@ -65,6 +66,7 @@ jobs:
           set -o pipefail
 
           # Install Ninja
+          sudo apt-get update -y
           sudo apt-get install ninja-build
         shell: bash
       - uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e # 8.2.1
