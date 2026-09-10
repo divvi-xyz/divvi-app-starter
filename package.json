@@ -83,9 +83,9 @@
     "react-native-video": "^6.6.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
-    "@expo/config-plugins": "~9.1.7",
-    "@types/react": "~18.3.20",
+    "@babel/core": "^8.0.1",
+    "@expo/config-plugins": "~57.0.9",
+    "@types/react": "~19.2.18",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },
